@@ -12,6 +12,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //이전에 입력한 값 읽어오기
+        loadData()
+
         resultButton.setOnClickListener {
             // 인텐트 객체를 생성하고 weight, height를 담아서 startActivity() 호출
 //            val intent = Intent(this, ResultActivity::class.java)
@@ -38,5 +41,17 @@ class MainActivity : AppCompatActivity() {
         editor.putInt("KEY_HEIGHT", height)
             .putInt("KEY_WEIGHT", weight)
             .apply()
+    }
+
+    private fun loadData(){
+        val pref = PreferenceManager.getDefaultSharedPreferences(this)
+        val height = pref.getInt("KEY_HEIGHT", 0)
+        val weight = pref.getInt("KEY_WEIGHT", 0)
+
+        if(height != 0 && weight != 0){
+            editHeight.setText(height.toString())
+            editWeight.setText(weight.toString())
+
+        }
     }
 }
