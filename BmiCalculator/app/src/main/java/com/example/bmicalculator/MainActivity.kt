@@ -1,7 +1,7 @@
 package com.example.bmicalculator
 
+import android.content.Context
 import android.os.Bundle
-import android.preference.PreferenceManager
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
@@ -38,19 +38,33 @@ class MainActivity : AppCompatActivity() {
 
     //SharedPreference에 키, 몸무게 데이터 저장하는 함수
     private fun saveData(height:Int, weight:Int){
-        val pref = PreferenceManager.getDefaultSharedPreferences(this)
-        val editor = pref.edit()
+//        val pref = PreferenceManager.getDefaultSharedPreferences(this)
+//        val editor = pref.edit()
+//
+//        editor.putInt("KEY_HEIGHT", height)
+//            .putInt("KEY_WEIGHT", weight)
+//            .apply()
 
-        editor.putInt("KEY_HEIGHT", height)
-            .putInt("KEY_WEIGHT", weight)
-            .apply()
+
+        val shared = this.getPreferences(Context.MODE_PRIVATE)?: return
+        with(shared.edit()){
+            putInt("KEY_HEIGHT", height)
+            putInt("KEY_WEIGHT", weight)
+            commit()
+        }
     }
 
     //SharedPreference에서 키, 몸무게 데이터 가져와 editText에 설정하는 함수
     private fun loadData(){
-        val pref = PreferenceManager.getDefaultSharedPreferences(this)
-        val height = pref.getInt("KEY_HEIGHT", 0)
-        val weight = pref.getInt("KEY_WEIGHT", 0)
+//        val pref = PreferenceManager.getDefaultSharedPreferences(this)
+//
+//
+//        val height = pref.getInt("KEY_HEIGHT", 0)
+//        val weight = pref.getInt("KEY_WEIGHT", 0)
+
+        val shared = this.getPreferences(Context.MODE_PRIVATE) ?: return
+        val height = shared.getInt("KEY_HEIGHT", 0)
+        val weight = shared.getInt("KEY_WEIGHT", 0)
 
         if(height != 0 && weight != 0){
             editHeight.setText(height.toString())
