@@ -1,6 +1,7 @@
 package com.example.bmicalculator
 
 import android.os.Bundle
+import android.preference.PreferenceManager
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
@@ -18,6 +19,8 @@ class MainActivity : AppCompatActivity() {
 //            intent.putExtra("height", editHeight.text.toString())
 //            startActivity(intent)
 
+            saveData(editHeight.text.toString().toInt(),
+                editWeight.text.toString().toInt())
 
             //anko 라이브러리
             startActivity<ResultActivity>(
@@ -26,5 +29,14 @@ class MainActivity : AppCompatActivity() {
             )
 
         }
+    }
+
+    private fun saveData(height:Int, weight:Int){
+        val pref = PreferenceManager.getDefaultSharedPreferences(this)
+        val editor = pref.edit()
+
+        editor.putInt("KEY_HEIGHT", height)
+            .putInt("KEY_WEIGHT", weight)
+            .apply()
     }
 }
