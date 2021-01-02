@@ -12,13 +12,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         resultButton.setOnClickListener {
-            // 인텐트 객체를 생성하고 startActivity() 호출
-            //val intent = Intent(this, ResultActivity::class.java)
-            //startActivity(intent)
+            // 인텐트 객체를 생성하고 weight, height를 담아서 startActivity() 호출
+//            val intent = Intent(this, ResultActivity::class.java)
+//            intent.putExtra("weight", editWeight.text.toString())
+//            intent.putExtra("height", editHeight.text.toString())
+//            startActivity(intent)
 
 
             //anko 라이브러리
-            startActivity<ResultActivity>()
+            startActivity<ResultActivity>(
+                "weight" to editWeight.text.toString(),
+                "height" to editHeight.text.toString()
+            )
 
         }
     }
