@@ -46,7 +46,7 @@ class ResultActivity : AppCompatActivity() {
         }
 
 //        Toast.makeText(this, "$bmi", Toast.LENGTH_LONG).show()
-        //Anko 사용
+        //Anko 사용 토스트 메시지 띄우기
         toast("$bmi")
     }
 }
