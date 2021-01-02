@@ -3,13 +3,14 @@ package com.example.bmicalculator
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_result.*
+import org.jetbrains.anko.toast
 
 class ResultActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
-        
+
         //인텐트에서 weight, height, 값 얻어오기
         val weight = intent.getStringExtra("weight").toInt()
         val height = intent.getStringExtra("height").toInt()
@@ -43,5 +44,9 @@ class ResultActivity : AppCompatActivity() {
                     R.drawable.ic_mood_bad_black_24dp
                 )
         }
+
+//        Toast.makeText(this, "$bmi", Toast.LENGTH_LONG).show()
+        //Anko 사용
+        toast("$bmi")
     }
 }
