@@ -1,6 +1,7 @@
 package com.example.stopwatch
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -11,6 +12,7 @@ class MainActivity : AppCompatActivity() {
     private var time = 0
     private var isRunning = false
     private var timerTask: Timer? = null //객체 선언 -> 생성 및 취소하기 위해서
+    private var lap = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +26,14 @@ class MainActivity : AppCompatActivity() {
             }else{ //running 상태가 아님
                 pause()
             }
+        }
+
+        resetFab.setOnClickListener {
+            reset()
+        }
+
+        labButton.setOnClickListener {
+            recordLapTime()
         }
     }
 
@@ -55,5 +65,29 @@ class MainActivity : AppCompatActivity() {
     private fun pause(){
         startpauseFab.setImageResource(R.drawable.ic_play_arrow_black_24dp) //start 이미지로 바꾸기
         timerTask?.cancel() //timer 정지
+    }
+
+    private fun reset(){
+        timerTask?.cancel()
+
+        //변수 초기화
+        time = 0
+        isRunning = false
+        startpauseFab.setImageResource(R.drawable.ic_play_arrow_black_24dp)
+        secTextView.text = "0"
+        milliTextView.text = "00"
+
+        //랩타임 제거
+        lapLayout.removeAllViews()
+        lap = 1
+    }
+
+    private fun recordLapTime(){
+        val lapTime = this.time //타이머의 시간
+        val textView = TextView(this)
+        textView.text = "$lap LAP : ${lapTime / 100}.${lapTime % 100}"
+
+        lapLayout.addView(textView, 0)
+        lap++
     }
 }
