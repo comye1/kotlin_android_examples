@@ -50,12 +50,13 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
+        android:tint="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_refresh_black_24dp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/labButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -75,16 +76,11 @@
         app:layout_constraintTop_toBottomOf="@+id/secTextView">
 
         <LinearLayout
+            android:id="@+id/lapLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
     </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/labLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"></LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
