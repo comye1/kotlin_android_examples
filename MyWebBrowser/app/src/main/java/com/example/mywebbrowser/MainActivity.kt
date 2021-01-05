@@ -3,8 +3,10 @@ package com.example.mywebbrowser
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
@@ -24,6 +26,8 @@ class MainActivity : AppCompatActivity() {
 
         webView.loadUrl("https://www.google.com") //웹 페이지 로딩
 
+        //컨텍스트 메뉴 등록
+        registerForContextMenu(webView)
 
         //setOnEditorActionListener : 선택되고 글자가 입력될 때마다 호출됨.
         urlEditText.setOnEditorActionListener{_, actionId, _ -> //인자 : 반응한 뷰, 액션ID, 이벤트
@@ -76,6 +80,28 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    //컨텍스트 메뉴 생성
+    override fun onCreateContextMenu(
+        menu: ContextMenu?,
+        v: View?,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        menuInflater.inflate(R.menu.context, menu)//
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        when(item?.itemId){
+            R.id.action_share -> {
+                return true
+            }
+            R.id.action_browser -> {
+                return true
+            }
+        }
+        return super.onContextItemSelected(item)
     }
 
     //뒤로가기 키 처리
