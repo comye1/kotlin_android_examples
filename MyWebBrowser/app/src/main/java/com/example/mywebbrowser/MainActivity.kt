@@ -1,6 +1,10 @@
 package com.example.mywebbrowser
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
@@ -32,6 +36,49 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //옵션 메뉴 표시하기
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
+        return true //true를 반환하면 메뉴가 있음을 인식한다.
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item?.itemId){
+            R.id.action_daum -> {
+                webView.loadUrl("http://daum.net")
+                return true
+            }
+            R.id.action_google -> {
+                webView.loadUrl("http://google.com")
+                return true
+            }
+            R.id.action_naver -> {
+                webView.loadUrl("http://naver.com")
+                return true
+            }
+            R.id.action_home -> {
+                webView.loadUrl("http://google.com")
+                return true
+            }
+            R.id.action_call -> {
+                val intent = Intent(Intent.ACTION_DIAL)
+                intent.data = Uri.parse("tel:031-111-1111")
+                if(intent.resolveActivity(packageManager) != null) {
+                    startActivity(intent)
+                }
+                return true
+            }
+            R.id.action_send_text -> {
+                return true
+            }
+            R.id.action_email -> {
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    //뒤로가기 키 처리
     override fun onBackPressed() {
         if(webView.canGoBack()){
             webView.goBack() //웹뷰 이전페이지 이동
