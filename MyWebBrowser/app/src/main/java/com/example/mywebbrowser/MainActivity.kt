@@ -31,4 +31,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onBackPressed() {
+        if(webView.canGoBack()){
+            webView.goBack() //웹뷰 이전페이지 이동
+        }else{
+            super.onBackPressed() //액티비티 종료
+        }
+    }
 }
