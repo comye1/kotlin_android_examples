@@ -65,14 +65,24 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.action_call -> {
+                //암시적 인텐트
                 val intent = Intent(Intent.ACTION_DIAL)
-                intent.data = Uri.parse("tel:031-111-1111")
-                if(intent.resolveActivity(packageManager) != null) {
-                    startActivity(intent)
+                intent.data = Uri.parse("tel:031-111-1111")//Uri 객체를 데이터로 설정
+                if(intent.resolveActivity(packageManager) != null) {//해당 인텐트를 수행하는 액티비티가 있는지 확인
+                    startActivity(intent) //있으면 액티비티 시작
                 }
                 return true
             }
             R.id.action_send_text -> {
+                val intent = Intent(Intent.ACTION_SEND)
+                intent.apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TEXT, "문자 내용")
+                    var chooser = Intent.createChooser(intent, null)
+                    if(intent.resolveActivity(packageManager) != null){
+                        startActivity(chooser)
+                    }
+                }
                 return true
             }
             R.id.action_email -> {
@@ -98,6 +108,11 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.action_browser -> {
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse(webView.url.toString())
+                if(intent.resolveActivity(packageManager) != null){
+                    startActivity(intent)
+                }
                 return true
             }
         }
