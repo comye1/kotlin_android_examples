@@ -11,6 +11,7 @@ import android.view.inputmethod.EditorInfo
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -74,18 +75,20 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.action_send_text -> {
-                val intent = Intent(Intent.ACTION_SEND)
-                intent.apply {
-                    type = "text/plain"
-                    putExtra(Intent.EXTRA_TEXT, "문자 내용")
-                    var chooser = Intent.createChooser(intent, null)
-                    if(intent.resolveActivity(packageManager) != null){
-                        startActivity(chooser)
-                    }
-                }
+//                val intent = Intent(Intent.ACTION_SEND)
+//                intent.apply {
+//                    type = "text/plain"
+//                    putExtra(Intent.EXTRA_TEXT, webView.url)
+//                    var chooser = Intent.createChooser(intent, null)
+//                    if(intent.resolveActivity(packageManager) != null){
+//                        startActivity(chooser)
+//                    }
+//                }
+                sendSMS("010-1234-1234", webView.url) //anko 문자보내기
                 return true
             }
             R.id.action_email -> {
+                email("comye1@naver.com", "사이트 주소", webView.url) //anko 메일보내기
                 return true
             }
         }
@@ -105,15 +108,16 @@ class MainActivity : AppCompatActivity() {
     override fun onContextItemSelected(item: MenuItem): Boolean {
         when(item?.itemId){
             R.id.action_share -> {
-                return true
+                share(webView.url) //anko 공유하기
             }
             R.id.action_browser -> {
-                val intent = Intent(Intent.ACTION_VIEW)
-                intent.data = Uri.parse(webView.url.toString())
-                if(intent.resolveActivity(packageManager) != null){
-                    startActivity(intent)
-                }
-                return true
+//                val intent = Intent(Intent.ACTION_VIEW)
+//                intent.data = Uri.parse(webView.url)
+//                if(intent.resolveActivity(packageManager) != null){
+//                    startActivity(intent)
+//                }
+//                return true
+                browse(webView.url) //anko 브라우저에서 열기
             }
         }
         return super.onContextItemSelected(item)
